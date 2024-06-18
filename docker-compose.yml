@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+  db:
+    image: mongo:latest
+    volumes:
+      - ~/apps/mongo:/Nodus-API/rooms
+      - ~/apps/mongo:/Nodus-API/errors
+    networks:
+      - tp-net
+    ports:
+      - "27017:27017"
+
+
+networks:
+  tp-net:
+    driver: bridge

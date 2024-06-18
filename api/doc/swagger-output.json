@@ -1,0 +1,398 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Nodus-API",
+    "description": "Documentation automatique de l'api pour le projet <b>Nodus-API</b>."
+  },
+  "host": "",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "Room"
+    },
+    {
+      "name": "Error"
+    },
+    {
+      "name": "User"
+    },
+    {
+      "name": "Problem"
+    }
+  ],
+  "schemes": [
+    ""
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/capteurs": {
+      "get": {
+        "tags": [
+          "Room"
+        ],
+        "description": "Récupérer la dernière donnée envoyée",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Récupérer la dernière donnée envoyée",
+            "schema": {
+              "$ref": "#/definitions/salles"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Room"
+        ],
+        "description": "Ajouter une nouvelle donnée (temperature, luminosité)",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "salle_niorttech": {
+                  "example": "any"
+                },
+                "luminosite": {
+                  "example": "any"
+                },
+                "temperature": {
+                  "example": "any"
+                },
+                "date_collecte": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Ajouter les informations dans la base (temperature, luminosité)",
+            "schema": {
+              "$ref": "#/definitions/salles"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/erreurs": {
+      "get": {
+        "tags": [
+          "Error"
+        ],
+        "description": "Récupérer le nombre d'erreurs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Récupérer le nombre d'erreurs",
+            "schema": {
+              "$ref": "#/definitions/number_of_error"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/scan/{personID}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Récupéré les données d'un utilisateur",
+        "parameters": [
+          {
+            "name": "personID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/user"
+            },
+            "description": "Récupéré les données d'un utilisateur"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "Ajouter un nouvel utilisateur",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "personID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Ajouter les informations dans la base (temperature, luminosité)",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/probleme": {
+      "get": {
+        "tags": [
+          "Problem"
+        ],
+        "description": "Récuperer les problèmes signalés par un utilisateur",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Récuperer les problèmes signaler par un utilisateur",
+            "schema": {
+              "$ref": "#/definitions/problemByPersonID"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Problem"
+        ],
+        "description": "{ \"Signaler un nouveau problème\" }",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "personID": {
+                  "example": "any"
+                },
+                "dateCreation": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Signaler un nouveau problème",
+            "schema": {
+              "$ref": "#/definitions/problemByPersonID"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/listProbleme": {
+      "get": {
+        "tags": [
+          "Problem"
+        ],
+        "description": "Récuperer la liste des problèmes signalés",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Signaler un nouveau problème",
+            "schema": {
+              "$ref": "#/definitions/listProblem"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/gestionProbleme": {
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "salles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "salle_niorttech": {
+            "type": "object",
+            "properties": {
+              "temperature": {
+                "type": "string",
+                "example": "20.9"
+              },
+              "date_collecte": {
+                "type": "string",
+                "example": "2023-03-02T17:51:59.000Z"
+              },
+              "allume": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "number_of_error": {
+      "type": "object",
+      "properties": {
+        "nombre_erreur": {
+          "type": "number",
+          "example": 0
+        }
+      }
+    },
+    "number_of_error_warning": {
+      "type": "object",
+      "properties": {
+        "nombre_erreur": {
+          "type": "number",
+          "example": 12
+        },
+        "warning": {
+          "type": "string",
+          "example": "Pas de données reçu depuis au moins 3 envois"
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "personID": {
+          "type": "string",
+          "example": "04404f3202110ffffff90"
+        },
+        "nom": {
+          "type": "string",
+          "example": "Collignon"
+        },
+        "prenom": {
+          "type": "string",
+          "example": "Antoine"
+        },
+        "problems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string",
+                "example": "J'ai trouvé un cable HDMI cassé"
+              },
+              "dateCreation": {
+                "type": "string",
+                "example": "2023-03-01T16:30:39.969Z"
+              },
+              "_id": {
+                "type": "string",
+                "example": "63ff7daf17102a25e76a2267"
+              }
+            }
+          }
+        },
+        "id": {
+          "type": "string",
+          "example": "63ff7d3017102a25e76a2252"
+        }
+      }
+    },
+    "listProblem": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "example": "J'ai trouvé un cable HDMI cassé"
+          },
+          "dateCreation": {
+            "type": "string",
+            "example": "2023-03-01T16:30:39.969Z"
+          },
+          "_id": {
+            "type": "string",
+            "example": "63ff7daf17102a25e76a2267"
+          },
+          "personID": {
+            "type": "string",
+            "example": "04404f3202110ffffff90"
+          },
+          "person": {
+            "type": "string",
+            "example": "Antoine Collignon"
+          }
+        }
+      }
+    },
+    "problemByPersonID": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "example": "J'ai trouvé un cable HDMI cassé"
+          },
+          "dateCreation": {
+            "type": "string",
+            "example": "2023-03-01T15:38:16.164Z"
+          },
+          "_id": {
+            "type": "string",
+            "example": "63ff71680dd1bcb41c259bb5"
+          }
+        }
+      }
+    }
+  }
+}

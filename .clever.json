@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "app_id": "app_409e923a-1bf4-466c-a744-2c7f732388bc",
+      "org_id": "orga_97b92657-1ad6-47e3-9cc3-05372c197737",
+      "deploy_url": "https://push-n2-par-clevercloud-customers.services.clever-cloud.com/app_409e923a-1bf4-466c-a744-2c7f732388bc.git",
+      "name": "Nodus-API",
+      "alias": "Nodus-API"
+    }
+  ]
+}
